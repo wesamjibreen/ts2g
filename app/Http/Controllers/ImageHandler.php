@@ -148,7 +148,7 @@ class ImageHandler extends Controller {
     }
 
     public function getDefaultImage($id){
-        $path = storage_path('app\uploads\images\\'.$id);
+        $path = storage_path('app/uploads/images/'.$id);
         if(!File::exists($path)) abort(404);
 
         $file = File::get($path);

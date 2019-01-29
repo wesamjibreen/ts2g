@@ -77,7 +77,7 @@
                             </div>
                             <div class="row">
                                 @php
-                                 $date = \Carbon\Carbon::createFromFormat('Y-m-d',user()->birth_date);
+                                 $date = isset(user()->birth_date) ?\Carbon\Carbon::createFromFormat('Y-m-d',user()->birth_date) : null;
                                 @endphp
                                 <p class="custom-label"><strong>Date of Birth</strong></p>
                                 <div class="form-group col-sm-3 col-xs-6">
@@ -85,7 +85,7 @@
                                     <select class="form-control" id="day" name="day" >
                                         <option value="">Day</option>
                                         @for($i=1; $i<=31 ;$i++)
-                                            <option @if($date->day == $i) selected @endif value="{{$i}}">{{$i}}</option>
+                                            <option @if(isset($date)&&$date->day == $i) selected @endif value="{{$i}}">{{$i}}</option>
                                         @endfor
                                     </select>
                                 </div>
@@ -95,7 +95,7 @@
                                     <select class="form-control" id="month"  name="month" required>
                                         <option value="">Month</option>
                                         @foreach(get_months() as $i=>$month)
-                                        <option value="{{$i}}" @if($i== $date->month) selected @endif>{{$month}}</option>
+                                        <option value="{{$i}}" @if(isset($date)&&$i== $date->month) selected @endif>{{$month}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -104,7 +104,7 @@
                                     <select class="form-control" name="year" id="year" required>
                                         <option value="">Year</option>
                                         @for($i=1990; $i<=2015 ;$i++)
-                                            <option @if($date->year == $i) selected @endif value="{{$i}}">{{$i}}</option>
+                                            <option @if(isset($date)&&$date->year == $i) selected @endif value="{{$i}}">{{$i}}</option>
                                         @endfor
                                     </select>
                                 </div>
@@ -466,46 +466,46 @@
             });
         </script>
 
-        {{--<script>--}}
-        {{--$(document).on('click', '.follow-user-ev', function () {--}}
-        {{--var _this = $(this);--}}
-        {{--$.ajax({--}}
-        {{--url: _this.data('url'),--}}
-        {{--method: 'PATCH',--}}
-        {{--success: function (response) {--}}
-        {{--if (response.status) {--}}
-        {{--_this.parent().parent().fadeOut();--}}
-        {{--$.notify(response.message, {--}}
-        {{--type: 'success',--}}
-        {{--allow_dismiss: true,--}}
-        {{--animate: {--}}
-        {{--enter: 'animated bounceIn',--}}
-        {{--exit: 'animated bounceOut'--}}
-        {{--}--}}
-        {{--});--}}
-        {{--} else {--}}
-        {{--$.notify(response.message, {--}}
-        {{--type: 'warning',--}}
-        {{--allow_dismiss: true,--}}
-        {{--animate: {--}}
-        {{--enter: 'animated bounceIn',--}}
-        {{--exit: 'animated bounceOut'--}}
-        {{--}--}}
-        {{--});--}}
-        {{--}--}}
-        {{--},--}}
-        {{--error: function (jqXhr) {--}}
-        {{--$.notify('Check Your Internet Connection', {--}}
-        {{--type: 'warning',--}}
-        {{--allow_dismiss: true,--}}
-        {{--animate: {--}}
-        {{--enter: 'animated bounceIn',--}}
-        {{--exit: 'animated bounceOut'--}}
-        {{--}--}}
-        {{--});--}}
-        {{--}--}}
-        {{--});--}}
-        {{--});--}}
-        {{--</script>--}}
+        <script>
+            $(document).on('click', '.follow-user-ev', function () {
+                var _this = $(this);
+                $.ajax({
+                    url: _this.data('url'),
+                    method: 'PATCH',
+                    success: function (response) {
+                        if (response.status) {
+                            _this.parent().parent().fadeOut();
+                            $.notify(response.message, {
+                                type: 'success',
+                                allow_dismiss: true,
+                                animate: {
+                                    enter: 'animated bounceIn',
+                                    exit: 'animated bounceOut'
+                                }
+                            });
+                        } else {
+                            $.notify(response.message, {
+                                type: 'warning',
+                                allow_dismiss: true,
+                                animate: {
+                                    enter: 'animated bounceIn',
+                                    exit: 'animated bounceOut'
+                                }
+                            });
+                        }
+                    },
+                    error: function (jqXhr) {
+                        $.notify('Check Your Internet Connection', {
+                            type: 'warning',
+                            allow_dismiss: true,
+                            animate: {
+                                enter: 'animated bounceIn',
+                                exit: 'animated bounceOut'
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
     @endpush
 @stop

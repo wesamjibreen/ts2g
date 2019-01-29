@@ -14,8 +14,7 @@ class UserLogin extends Model
     {
         $instance = new self;
         $instance->fill($data);
-        $instance->user_id = auth()->user()->id;
-        $instance->type = auth()->user()->id;
+        $instance->type = 'facebook';
         $instance->save();
         return $instance;
     }

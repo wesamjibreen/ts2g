@@ -9,19 +9,23 @@
         <div class="dropdown-menu dropdown-menu-head pull-right">
             {{--<h5 class="title text-center">You Have 5 New Notifications</h5>--}}
             <ul class="dropdown-list gen-list">
-                @foreach($allNotifications as $notification)
-                    <li class="new">
-                        <a href="javascript">
+                @if($allNotifications->count() >0)
+                    @foreach($allNotifications as $notification)
+                        <li class="new">
+                            <a href="javascript">
                             <span class="thumb">
                 <img style="border-radius: 25px" src="{{$notification->getAvatar()}}" alt="">
             </span>
-                            <span class="desc">
+                                <span class="desc">
                 <span class="name">{{$notification->text}}</span>
                 <span class="msg"> {{diff_for_humans($notification->created_at)}} </span>
             </span>
-                        </a>
-                    </li>
-                @endforeach
+                            </a>
+                        </li>
+                    @endforeach
+                    @else
+                    <li> <a href="javascript:;"> There is No Notifications</a></li>
+                @endif
             </ul>
 
         </div>

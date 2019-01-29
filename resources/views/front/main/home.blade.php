@@ -441,10 +441,8 @@
                                             <button type="submit" class="btn btn-primary">Register Now</button>
                                         </div>
                                         <div class="col-md-6">
-                                            <a class="btn btn-primary" href="{{route('front.login.facebook.auth')}}"> <i
-                                                        style="margin-right: 15px" class="fa fa-facebook"></i> Login
-                                                with
-                                                Facebook</a>
+                                            <a class="btn btn-primary" href="{{route('front.login.facebook.auth')}}">
+                                                <i style="margin-right: 15px" class="fa fa-facebook"></i> Login with Facebook</a>
                                         </div>
                                     </div>
                                     {!! Form::close() !!}
@@ -474,7 +472,15 @@
                                         </div>
                                     </div>
                                     <p><a href="#">Forgot Password?</a></p>
-                                    <button class="btn btn-primary">Login Now</button>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary">Login Now</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a class="btn btn-primary" href="{{route('front.login.facebook.auth')}}">
+                                                <i style="margin-right: 15px" class="fa fa-facebook"></i> Login with Facebook</a>
+                                        </div>
+                                    </div>
                                     {!! Form::close() !!}
 
                                 </div>
