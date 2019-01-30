@@ -113,46 +113,13 @@ class Post extends Model
                 'mime_type' => @$video['mime_type']
             ]);
         }
-//
-//        if (is_array($images) && count($images) > 0) {
-//            foreach ($images as $image) {
-//                $path = '\uploads\images\\';
-//                $file_name = 'image_' . time() . '.png';
-//                $file_data = $image['path'];
-//                @list($type, $file_data) = explode(';', $file_data);
-//                @list(, $file_data) = explode(',', $file_data);
-//                if ($file_data != "") {
-//                    Storage::disk('local')->put($path . $file_name, base64_decode($file_data));
-//                    $image = Image::create([
-//                        'display_name' => $image['name'],
-//                        'file_name' => $file_name,
-//                        'mime_type' => 'jpg',
-//                        'size' => 0
-//                    ]);
-//                    $media = PostMedia::create([
-//                        'post_id' => $this->id,
-//                        'ownerable_id' => $image->id,
-//                        'ownerable_type' => Image::class,
-//                        'mime_type' => 'png'
-//                    ]);
-//                }
-//            }
-//        }
         return true;
     }
-
-//    public function images()
-//    {
-//        return $this->media()->where('owner_model',Image::class);
-//    }
-
 
     public function images()
     {
         $ids = PostMedia::where('ownerable_type', Image::class)->where('post_id', $this->id)->pluck('ownerable_id');
         return Image::whereIn('id', $ids);
-//        return $this->hasManyThrough(Image::class,PostMedia::class,'post_id','ownerable_id','id','id');
-//        return $this->media()->where('owner_model',Image::class);
     }
 
     public function videos()
@@ -161,24 +128,4 @@ class Post extends Model
         return Video::whereIn('id', $ids);
     }
 
-//    public function offers()
-//    {
-//        return $this->hasManyThrough(ProductOffer::class,Product::class,'category_id','product_id','id','id');
-//    }
-//    public function videos()
-//    {
-//        return $this->media()->where('owner_model',Image::class);
-//    }
-
-//    public function media()
-//    {
-//        return $this->morphMany(PostMedia::class,'ownerable',Image::class,'id');
-//    }
-//
-
-
-//    public function storeMedia(Request $request)
-//    {
-//
-//    }
 }
